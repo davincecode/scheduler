@@ -3,7 +3,7 @@ import "components/DayListItem.scss"
 import classNames from "classnames"
 
 export default function DayListItem(props) {
-  const { selected, spots, name } = props
+  const { setDay, selected, spots, name } = props
 
   const dayClass = classNames("day-list__item", {
     "day-list__item--selected": selected,
@@ -21,7 +21,7 @@ export default function DayListItem(props) {
   }
 
   return (
-    <li className={dayClass} onClick={() => props.setDay(name)}>
+    <li className={dayClass} onClick={() => setDay(name)}>
       <h2 className="text--regular">{name}</h2>
       {formatSpots()}
     </li>
