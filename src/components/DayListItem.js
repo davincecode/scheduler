@@ -10,7 +10,7 @@ export default function DayListItem(props) {
     "day-list__item--full": spots === 0,
   })
 
-  const formatSpots = () => {
+  const formatSpots = (spots) => {
     if (spots === 0) {
       return <h3 className="text--light">no spots remaining</h3>
     } else if (spots === 1) {

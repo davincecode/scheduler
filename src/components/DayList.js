@@ -8,8 +8,8 @@ export default function DayList(props) {
     return (
       <DayListItem
         key={item.id}
-        spots={item.spots}
         name={item.name}
+        spots={item.spots}
         selected={item.name === value}
         setDay={() => onChange(item.name)}
       />
@@ -17,7 +17,7 @@ export default function DayList(props) {
   })
 
   // return <ul>{dayList}</ul>
-  return { dayList }
+  return dayList
 }
 
 // Previous code

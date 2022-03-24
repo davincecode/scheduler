@@ -65,13 +65,7 @@ const appointments = {
 export default function Application(props) {
   const [day, setDay] = useState("Monday")
   const appointmentsList = Object.values(appointments).map((appointment) => (
-    // <Appointment key={appointment.id} {...appointment} />
-    <Appointment
-      key={appointment.id}
-      id={appointment.id}
-      time={appointment.time}
-      interview={appointment.interview}
-    />
+    <Appointment key={appointment.id} {...appointment} />
   ))
   return (
     <main className="layout">

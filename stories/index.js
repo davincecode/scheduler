@@ -144,11 +144,7 @@ storiesOf("Appointment", module)
   .add("Header", () => <Header time="12pm" />)
   .add("Empty", () => <Empty onAdd={action("onAdd")} />)
   .add("Show", () => (
-    <Show
-      interviewers={interviewers}
-      onEdit={action("onEdit")}
-      onDelete={action("onDelete")}
-    />
+    <Show onEdit={action("onEdit")} onDelete={action("onDelete")} />
   ))
   .add("Confirm", () => (
     <Confirm
@@ -183,17 +179,15 @@ storiesOf("Appointment", module)
       <Appointment time="5pm" />
     </>
   ))
-  .add("Appointment Booked", () => (
-    <>
-      <Appointment
-        id={1}
-        time="4pm"
-        interview={{
-          student: "Lydia Miller-Jones",
-          interviewer: "Sylvia Palmer",
-          id: 1,
-        }}
-      />
-      <Appointment time="5pm" />
-    </>
-  ))
+  .add("Appointment Booked", () => {
+    return (
+      <>
+        <Appointment
+          id={1}
+          time="4pm"
+          interview={{ student: "Lydia Miller-Jones", interviewer }}
+        />
+        <Appointment time="5pm" />
+      </>
+    )
+  })
