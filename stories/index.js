@@ -112,6 +112,21 @@ const interviewers = [
   { id: 5, name: "Sven Jones", avatar: "https://i.imgur.com/twYrpay.jpg" },
 ]
 
+storiesOf("InterviewerList", module)
+  .addParameters({
+    backgrounds: [{ name: "dark", value: "#222f3e", default: true }],
+  })
+  .add("Initial", () => <InterviewerList interviewers={interviewers} />)
+  .add("Selected", () => (
+    <InterviewerList interviewers={interviewers} value={3} />
+  ))
+  .add("Clickable", () => (
+    <InterviewerList
+      interviewers={interviewers}
+      onChange={action("setInterviewer")}
+    />
+  ))
+
 // storiesOf("InterviewerList", module)
 //   .addParameters({
 //     backgrounds: [{ name: "dark", value: "#222f3e", default: true }],
@@ -133,18 +148,3 @@ const interviewers = [
 //       setInterviewer={() => action("setInterviewer")(interviewer.id)}
 //     />
 //   ))
-
-storiesOf("InterviewerList", module)
-  .addParameters({
-    backgrounds: [{ name: "dark", value: "#222f3e", default: true }],
-  })
-  .add("Initial", () => <InterviewerList interviewers={interviewers} />)
-  .add("Selected", () => (
-    <InterviewerList interviewers={interviewers} value={3} />
-  ))
-  .add("Clickable", () => (
-    <InterviewerList
-      interviewers={interviewers}
-      onChange={action("setInterviewer")}
-    />
-  ))
