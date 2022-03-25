@@ -38,17 +38,19 @@ export default function Application() {
     })
   }, [])
 
-  const appointments = getAppointmentsForDay(state, state.day)
-  const interviewers = getInterviewersForDay(state, state.day)
-  const schedule = appointments.map((appointment) => {
+  const dailyAppointments = getAppointmentsForDay(state, state.day)
+  const dailyInterviewers = getInterviewersForDay(state, state.day)
+
+  const schedule = dailyAppointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview)
 
     return (
       <Appointment
         key={appointment.id}
-        {...appointment}
+        id={appointment.id}
+        time={appointment.time}
         interview={interview}
-        interviewers={interviewers}
+        interviewers={dailyInterviewers}
       />
     )
   })
