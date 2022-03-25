@@ -29,7 +29,6 @@ export default function Application() {
       axios.get("/api/interviewers"),
     ]).then((all) => {
       const [days, appointments, interviewers] = all
-      console.log(days, appointments, interviewers)
       setState((prev) => ({
         ...prev,
         days: days.data,

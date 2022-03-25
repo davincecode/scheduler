@@ -5,10 +5,18 @@ import Empty from "./Empty"
 import Show from "./Show"
 
 export default function Appointment(props) {
+  console.log("LOOK HERE", props)
   return (
     <article className="appointment">
       <Header time={props.time} />
-      {props.interview ? Show(props) : Empty(props)}
+      {props.interview ? (
+        <Show
+          student={props.interview.student}
+          interviewer={props.interview.interviewer}
+        />
+      ) : (
+        Empty(props)
+      )}
     </article>
   )
 }
