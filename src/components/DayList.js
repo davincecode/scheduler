@@ -16,8 +16,8 @@ export default function DayList(props) {
     )
   })
 
-  // return <ul>{dayList}</ul>
-  return dayList
+  return <ul>{dayList}</ul>
+  // return dayList
 }
 
 // Previous code

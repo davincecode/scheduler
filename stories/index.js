@@ -6,10 +6,10 @@ import { action } from "@storybook/addon-actions"
 import "index.scss"
 
 import Button from "components/Button"
-import DayList from "components/DayList"
 import DayListItem from "components/DayListItem"
-import InterviewerList from "components/InterviewerList"
+import DayList from "components/DayList"
 import InterviewerListItem from "components/InterviewerListItem"
+import InterviewerList from "components/InterviewerList"
 import Appointment from "components/Appointment/index.js"
 import Header from "components/Appointment/Header"
 import Empty from "components/Appointment/Empty"
@@ -105,10 +105,9 @@ storiesOf("InterviewerListItem", module)
   ))
   .add("Clickable", () => (
     <InterviewerListItem
-      id={interviewer.id}
       name={interviewer.name}
       avatar={interviewer.avatar}
-      setInterviewer={action("setInterviewer")}
+      setInterviewer={() => action("setInterviewer")(interviewer.id)}
     />
   ))
 
@@ -144,7 +143,12 @@ storiesOf("Appointment", module)
   .add("Header", () => <Header time="12pm" />)
   .add("Empty", () => <Empty onAdd={action("onAdd")} />)
   .add("Show", () => (
-    <Show onEdit={action("onEdit")} onDelete={action("onDelete")} />
+    <Show
+      student="Lydia Miller-Jones"
+      interviewer={interviewer}
+      onEdit={action("onEdit")}
+      onDelete={action("onDelete")}
+    />
   ))
   .add("Confirm", () => (
     <Confirm
@@ -155,7 +159,10 @@ storiesOf("Appointment", module)
   ))
   .add("Status", () => <Status message="Deleting" />)
   .add("Error", () => (
-    <Error message="Could not delete appointment" onClose={action("onClose")} />
+    <Error
+      message="Could not delete appointment."
+      onClose={action("onClose")}
+    />
   ))
   .add("Create", () => (
     <Form
@@ -166,8 +173,8 @@ storiesOf("Appointment", module)
   ))
   .add("Edit", () => (
     <Form
-      student="Lydia Miller-Jones"
-      interviewer={interviewer[1]}
+      student=""
+      interviewer={null}
       interviewers={interviewers}
       onSave={action("onSave")}
       onCancel={action("onCancel")}
@@ -179,15 +186,13 @@ storiesOf("Appointment", module)
       <Appointment time="5pm" />
     </>
   ))
-  .add("Appointment Booked", () => {
-    return (
-      <>
-        <Appointment
-          id={1}
-          time="4pm"
-          interview={{ student: "Lydia Miller-Jones", interviewer }}
-        />
-        <Appointment time="5pm" />
-      </>
-    )
-  })
+  .add("Appointment Booked", () => (
+    <>
+      <Appointment
+        id={1}
+        time="4pm"
+        interview={{ student: "Lydia Miller-Jones", interviewer }}
+      />
+      <Appointment time="5pm" />
+    </>
+  ))
