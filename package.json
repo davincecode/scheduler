@@ -1,6 +1,7 @@
 {
   "name": "scheduler",
   "version": "0.1.0",
+  "proxy": "http://localhost:8001",
   "private": true,
   "dependencies": {
     "axios": "^0.26.1",
@@ -11,6 +12,7 @@
     "react-scripts": "3.0.0",
     "yarn": "^1.22.18"
   },
+  
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
