@@ -1,18 +1,15 @@
 import React from "react"
 
-export default function Status(props) {
+export default function Confirm(props) {
+  const { message } = props
   return (
-    <>
-      <main className="appointment__card appointment__card--status">
-        <img
-          className="appointment__status-image"
-          src="images/status.png"
-          alt="Loading"
-        />
-        <h1 className="text--semi-bold" onClick={props.Status}>
-          Deleting
-        </h1>
-      </main>
-    </>
+    <main className="appointment__card appointment__card--status">
+      <img
+        className="appointment__status-image"
+        src="images/status.png"
+        alt="Loading"
+      />
+      <h1 className="text--semi-bold">{message}</h1>
+    </main>
   )
 }
