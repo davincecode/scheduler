@@ -1,74 +1,13 @@
 import { useEffect, useReducer } from "react"
 import axios from "axios"
 
-const SET_DAY = "SET_DAY"
-const SET_APPLICATION_DATA = "SET_APPLICATION_DATA"
-const SET_INTERVIEW = "SET_INTERVIEW"
+import reducer, {
+  SET_DAY,
+  SET_APPLICATION_DATA,
+  SET_INTERVIEW,
+} from "reducers/application"
 
-function reducer(state, action) {
-  const { day, days, appointments, interviewers, id, interview } = action
-
-  switch (action.type) {
-    case SET_DAY:
-      return { ...state, day }
-    case SET_APPLICATION_DATA:
-      return { ...state, days, appointments, interviewers }
-    case SET_INTERVIEW: {
-      const appointment = {
-        ...state.appointments[id],
-        interview: { ...interview },
-      }
-
-      const appointments = {
-        ...state.appointments,
-        [id]: appointment,
-      }
-
-      function updateSpots(state, appointments) {
-        const days = state.days.map((day) => {
-          return { ...day }
-        })
-
-        function findDay(day) {
-          const daysOfWeek = {
-            Monday: 0,
-            Tuesday: 1,
-            Wednesday: 2,
-            Thursday: 3,
-            Friday: 4,
-          }
-          return daysOfWeek[day]
-        }
-
-        const dayIndex = findDay(state.day)
-
-        const prevState = state.appointments[id].interview
-
-        const newState = appointments[id].interview
-
-        if (!prevState && newState) {
-          days[dayIndex].spots--
-        }
-
-        if (prevState && !newState) {
-          days[dayIndex].spots++
-        }
-
-        return days
-      }
-
-      const days = updateSpots(state, appointments, id)
-
-      return { ...state, appointments, days }
-    }
-    default:
-      throw new Error(
-        `Tried to reduce with unsupported action type: ${action.type}`
-      )
-  }
-}
-
-function useApplicationData() {
+export function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {
     day: "Monday",
     days: [],
@@ -76,7 +15,6 @@ function useApplicationData() {
     interviewers: {},
   })
 
-  // const setDay = (day) => setState({ ...state, day });
   const setDay = (day) => dispatch({ type: SET_DAY, day })
 
   function bookInterview(id, interview) {
@@ -104,6 +42,27 @@ function useApplicationData() {
         interviewers: all[2].data,
       })
     })
+  }, [])
+
+  useEffect(() => {
+    const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL)
+
+    webSocket.onopen = function (event) {
+      webSocket.onmessage = function (event) {
+        const data = JSON.parse(event.data)
+
+        if (data.type === "SET_INTERVIEW") {
+          dispatch({
+            type: SET_INTERVIEW,
+            interview: data.interview,
+            id: data.id,
+          })
+        }
+      }
+    }
+    return () => {
+      webSocket.close()
+    }
   }, [])
 
   return { setDay, bookInterview, cancelInterview, state }
