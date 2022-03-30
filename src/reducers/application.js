@@ -55,8 +55,8 @@ function updateSpots(state, appointments, id) {
   }
   // find the day's index in days array
   const dayIndex = findDay(state.day)
-  // console.log("STATE.DAY: ", state.day);
-  // console.log("DAYINDEX: ", dayIndex);
+  // console.log("STATE.DAY: ", state.day)
+  // console.log("DAYINDEX: ", dayIndex)
 
   // check for old state
   const prevState = state.appointments[id].interview
