@@ -6,19 +6,19 @@
 
 ### ADD BOOKING
 
-![This is an image](https://myoctocat.com/assets/images/base-octocat.svg)
+![This is an image](https://github.com/davincecode/scheduler/blob/master/public/images/add.gif)
 
 ### EDIT BOOKING
 
-![This is an image](https://myoctocat.com/assets/images/base-octocat.svg)
+![This is an image](https://github.com/davincecode/scheduler/blob/master/public/images/edit.gif)
 
 ### DELETE BOOKING
 
-![This is an image](https://myoctocat.com/assets/images/base-octocat.svg)
+![This is an image](https://github.com/davincecode/scheduler/blob/master/public/images/delete.gif)
 
 ### CANCEL
 
-![This is an image](https://myoctocat.com/assets/images/base-octocat.svg)
+![This is an image](https://github.com/davincecode/scheduler/blob/master/public/images/cancel.gif)
 
 ## Setup
 
