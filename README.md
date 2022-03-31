@@ -2,7 +2,7 @@
 
 ## Built using ReactJS
 
-##FEATURES
+## FEATURES
 
 ### ADD BOOKING
 
