@@ -10,6 +10,8 @@
 
 # production
 /build
+/coverage
+/cypress
 
 # misc
 .DS_Store
