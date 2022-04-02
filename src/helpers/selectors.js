@@ -1,3 +1,4 @@
+/* Gets appointments for specific day and returns array of appointments*/
 export function getAppointmentsForDay(state, day) {
   const filteredDays = state.days.filter((stateDay) => stateDay.name === day)
 

@@ -1,29 +1,24 @@
 import { useState } from "react"
 
+/* 
+Custom hook for managing mode state (which handles transitions). Utilizes Stack data structure
+*/
 export default function useVisualMode(initial) {
-  const [mode, setMode] = useState(initial)
   const [history, setHistory] = useState([initial])
-
-  const transition = (newMode) => {
-    setHistory((prev) => [newMode, ...prev])
-    setMode(newMode)
+  const transition = (newMode, replace = false) => {
+    setHistory((prev) => {
+      if (replace) return [newMode, ...prev.slice(1)]
+      return [newMode, ...prev]
+    })
   }
 
   const back = () => {
-    let historyCopy = history.slice(0)
-    let prevMode = ""
-
-    if (historyCopy.length <= 2) {
-      prevMode = historyCopy[history.length - 1]
-      historyCopy.shift()
-      setMode(prevMode)
-      setHistory(historyCopy)
-    } else {
-      prevMode = historyCopy[historyCopy.length - 2]
-      historyCopy.shift()
-      setHistory(historyCopy)
-      setMode(prevMode)
-    }
+    setHistory((prev) => {
+      if (prev.length <= 1) return prev
+      return prev.slice(1)
+    })
   }
-  return { mode, transition, back, history }
+  const mode = history[0]
+
+  return { mode, transition, back }
 }

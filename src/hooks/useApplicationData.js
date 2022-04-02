@@ -7,6 +7,7 @@ import reducer, {
   SET_INTERVIEW,
 } from "reducers/application"
 
+// Sets initial state, API setup/calls, and websocket connection
 export function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {
     day: "Monday",
@@ -29,6 +30,7 @@ export function useApplicationData() {
     })
   }
 
+  // Initial axios call for populating data from database
   useEffect(() => {
     Promise.all([
       axios.get("/api/days"),
@@ -44,13 +46,16 @@ export function useApplicationData() {
     })
   }, [])
 
+  // Create websocket connection once the page renders
   useEffect(() => {
     const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL)
-
+    // Initialize open connection
     webSocket.onopen = function (event) {
       webSocket.onmessage = function (event) {
+        // Parse server response data
         const data = JSON.parse(event.data)
 
+        // Dispatch data when receiving server response
         if (data.type === "SET_INTERVIEW") {
           dispatch({
             type: SET_INTERVIEW,
@@ -60,6 +65,7 @@ export function useApplicationData() {
         }
       }
     }
+    // Clean up by closing websocket connection
     return () => {
       webSocket.close()
     }
