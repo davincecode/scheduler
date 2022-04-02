@@ -1,5 +1,4 @@
-import React, { Fragment } from "react"
-
+import React, { useEffect } from "react"
 import "components/Appointment/styles.scss"
 import Header from "./Header"
 import Show from "./Show"
@@ -24,9 +23,17 @@ export default function Appointment(props) {
   const ERROR_SAVE = "ERROR_SAVE"
   const ERROR_DELETE = "ERROR_DELETE"
 
-  const { mode, transition, back } = useVisualMode(
-    props.interview ? SHOW : EMPTY
-  )
+  const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY)
+
+  useEffect(() => {
+    if (mode === EMPTY && interview) {
+      transition(SHOW)
+    }
+
+    if (mode === SHOW && !interview) {
+      transition(EMPTY)
+    }
+  }, [mode, interview, transition])
 
   function save(name, interviewer) {
     const interview = {
@@ -63,11 +70,13 @@ export default function Appointment(props) {
   }
 
   return (
-    <Fragment>
+    <>
       <Header time={time} />
-      <article className="appointment">
-        {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-        {mode === SHOW && (
+      <article className="appointment" data-testid="appointment">
+        {mode === EMPTY && interview === null && (
+          <Empty onAdd={() => transition(CREATE)} />
+        )}
+        {mode === SHOW && interview && (
           <Show
             id={id}
             student={interview.student}
@@ -114,6 +123,6 @@ export default function Appointment(props) {
           />
         )}
       </article>
-    </Fragment>
+    </>
   )
 }
