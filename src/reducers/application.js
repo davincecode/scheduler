@@ -1,4 +1,4 @@
-// Action types for reducer
+// Reducer action types for setting state
 export const SET_DAY = "SET_DAY"
 export const SET_APPLICATION_DATA = "SET_APPLICATION_DATA"
 export const SET_INTERVIEW = "SET_INTERVIEW"
@@ -34,6 +34,7 @@ export default function reducer(state, action) {
   }
 }
 
+// Get back updated days array using copies of state, appointments, id
 function updateSpots(state, appointments, id) {
   const days = state.days.map((day) => {
     return { ...day }
@@ -49,17 +50,14 @@ function updateSpots(state, appointments, id) {
     }
     return daysOfWeek[day]
   }
-
   const dayIndex = findDay(state.day)
 
   const prevState = state.appointments[id].interview
-
   const newState = appointments[id].interview
 
   if (!prevState && newState) {
     days[dayIndex].spots--
   }
-
   if (prevState && !newState) {
     days[dayIndex].spots++
   }

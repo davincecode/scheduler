@@ -1,3 +1,4 @@
+// Mock axios requests with fixed data to test with Jest
 export default {
   get: jest.fn((url) => {
     if (url === "/api/days") {
