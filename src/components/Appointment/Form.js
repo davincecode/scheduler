@@ -1,11 +1,11 @@
 import React, { useState } from "react"
-
 import InterviewerList from "../InterviewerList"
 import Button from "../Button"
 
 export default function Form(props) {
   const { interviewers, onSave, onCancel } = props
 
+  const [error, setError] = useState("")
   const [student, setStudent] = useState(props.student || "")
   const [interviewer, setInterviewer] = useState(props.interviewer || null)
 
@@ -19,10 +19,14 @@ export default function Form(props) {
     onCancel()
   }
 
-  function save(student, interviewer) {
-    if (student && interviewer) {
-      onSave(student, interviewer)
+  function validate() {
+    if (student === "" || !interviewer) {
+      setError("You cannot leave anything blank!")
+      return
     }
+
+    setError("")
+    onSave(student, interviewer)
   }
 
   return (
@@ -39,8 +43,10 @@ export default function Form(props) {
             onChange={(event) => {
               setStudent(event.target.value)
             }}
+            data-testid="student-name-input"
           />
         </form>
+        <section className="appointment__validation">{error}</section>
         <InterviewerList
           interviewers={interviewers}
           value={interviewer}
@@ -52,7 +58,7 @@ export default function Form(props) {
           <Button danger onClick={cancel}>
             Cancel
           </Button>
-          <Button confirm onClick={() => save(student, interviewer)}>
+          <Button confirm onClick={validate}>
             Save
           </Button>
         </section>
