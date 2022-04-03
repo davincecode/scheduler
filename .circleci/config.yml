@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:10.16
+      - image: circleci/node:14.15
 
     working_directory: ~/client
 
@@ -28,7 +28,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "e1:f8:c2:23:da:83:70:0d:7a:21:63:39:11:b0:10:a0"
+            - "bb:2b:ab:69:43:bf:3f:f1:cb:22:5c:d3:a8:cb:8d:b4"
       - checkout
       - run:
           name: Push Master to Production
