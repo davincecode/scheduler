@@ -1,15 +1,19 @@
 import React from "react"
 
-export default function Empty(props) {
-  const { onAdd } = props
+const Empty = (props) => {
+  let mainClassName = "appointment__add"
+  let imgClassName = "appointment__add-button"
+
   return (
-    <main className="appointment__add">
+    <main className={mainClassName}>
       <img
-        className="appointment__add-button"
+        className={imgClassName}
         src="images/add.png"
         alt="Add"
-        onClick={onAdd}
+        onClick={props.onAdd}
       />
     </main>
   )
 }
+
+export default Empty

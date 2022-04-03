@@ -1,77 +1,103 @@
-import { useEffect, useReducer } from "react"
+import { useState, useEffect } from "react"
 import axios from "axios"
 
-import reducer, {
-  SET_DAY,
-  SET_APPLICATION_DATA,
-  SET_INTERVIEW,
-} from "reducers/application"
-
-// Sets initial state, API setup/calls, and websocket connection
-export function useApplicationData() {
-  const [state, dispatch] = useReducer(reducer, {
+export default function useApplicationData() {
+  const [state, setState] = useState({
     day: "Monday",
     days: [],
     appointments: {},
-    interviewers: {},
   })
 
-  const setDay = (day) => dispatch({ type: SET_DAY, day })
-
-  function bookInterview(id, interview) {
-    return axios.put(`/api/appointments/${id}`, { interview }).then((res) => {
-      dispatch({ type: SET_INTERVIEW, id, interview })
-    })
-  }
-
-  function cancelInterview(id) {
-    return axios.delete(`/api/appointments/${id}`).then((res) => {
-      dispatch({ type: SET_INTERVIEW, id, interview: null })
-    })
-  }
-
-  // Initial axios call for populating data from database
   useEffect(() => {
     Promise.all([
-      axios.get("/api/days"),
-      axios.get("/api/appointments"),
-      axios.get("/api/interviewers"),
+      axios.get("api/days"),
+      axios.get("api/appointments"),
+      axios.get("api/interviewers"),
     ]).then((all) => {
-      dispatch({
-        type: SET_APPLICATION_DATA,
-        days: all[0].data,
-        appointments: all[1].data,
-        interviewers: all[2].data,
+      setState((prev) => {
+        return {
+          ...prev,
+          days: all[0].data,
+          appointments: all[1].data,
+          interviewers: all[2].data,
+        }
       })
     })
   }, [])
 
-  // Create websocket connection once the page renders
-  useEffect(() => {
-    const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL)
-    // Initialize open connection
-    webSocket.onopen = function (event) {
-      webSocket.onmessage = function (event) {
-        // Parse server response data
-        const data = JSON.parse(event.data)
+  const setDay = (day) => setState((prev) => ({ ...prev, day }))
 
-        // Dispatch data when receiving server response
-        if (data.type === "SET_INTERVIEW") {
-          dispatch({
-            type: SET_INTERVIEW,
-            interview: data.interview,
-            id: data.id,
-          })
-        }
-      }
-    }
-    // Clean up by closing websocket connection
-    return () => {
-      webSocket.close()
-    }
-  }, [])
+  const updateSpots = (incomingState, appointments, day) => {
+    const state = { ...incomingState }
+    const currentDay = day || state.day
 
-  return { setDay, bookInterview, cancelInterview, state }
+    const currentDayObj = state.days.find(
+      (dayObj) => dayObj.name === currentDay
+    )
+    const currentDayIndex = state.days.findIndex(
+      (dayObj) => dayObj.name === currentDay
+    )
+
+    const listOfAppointmentIds = currentDayObj.appointments
+
+    const listOfNullAppointments = listOfAppointmentIds.filter(
+      (id) => !appointments[id].interview
+    )
+
+    const spots = listOfNullAppointments.length
+
+    const updatedDayObj = { ...currentDayObj, spots }
+
+    const days = state.days
+
+    days[currentDayIndex] = updatedDayObj
+
+    return days
+  }
+
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview },
+    }
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    }
+
+    return axios.put(`/api/appointments/${id}`, { interview }).then(() => {
+      const updatedDays = updateSpots(state, appointments, state.day)
+
+      setState({
+        ...state,
+        appointments,
+        days: updatedDays,
+      })
+    })
+  }
+
+  function cancelInterview(id) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null,
+    }
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    }
+
+    return axios.delete(`/api/appointments/${id}`).then(() => {
+      const updatedDays = updateSpots(state, appointments, state.day)
+
+      setState({
+        ...state,
+        appointments,
+        days: updatedDays,
+      })
+    })
+  }
+
+  return { state, setDay, bookInterview, cancelInterview }
 }
-
-export default useApplicationData

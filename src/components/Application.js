@@ -1,16 +1,19 @@
 import React from "react"
+
+import DayList from "components/DayList"
 import "components/Application.scss"
-import DayList from "./DayList"
-import Appointment from "../components/Appointment"
-import useApplicationData from "../hooks/useApplicationData"
+import Appointment from "components/Appointment"
+
 import {
-  getAppointmentsForDay,
   getInterview,
   getInterviewersForDay,
+  getAppointmentsForDay,
 } from "../helpers/selectors"
 
-export default function Application() {
-  const { setDay, bookInterview, cancelInterview, state } = useApplicationData()
+import useApplicationData from "../hooks/useApplicationData"
+
+export default function Application(props) {
+  const { state, setDay, bookInterview, cancelInterview } = useApplicationData()
 
   const interviewers = getInterviewersForDay(state, state.day)
 
@@ -39,7 +42,7 @@ export default function Application() {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-          <DayList days={state.days} value={state.day} onChange={setDay} />
+          <DayList days={state.days} day={state.day} setDay={setDay} />
         </nav>
         <img
           className="sidebar__lhl sidebar--centered"
@@ -48,8 +51,10 @@ export default function Application() {
         />
       </section>
       <section className="schedule">
-        {appointments}
-        <Appointment key="last" time="5pm" />
+        <section className="schedule">
+          {appointments}
+          <Appointment key="last" time="5pm" />
+        </section>
       </section>
     </main>
   )
