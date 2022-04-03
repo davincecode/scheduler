@@ -8,7 +8,6 @@ import {
   waitForElement,
   getAllByTestId,
   getByAltText,
-  queryByAltText,
   queryByText,
   getByText,
 } from "@testing-library/react"
@@ -30,7 +29,7 @@ it("loads data, cancels an interview and increases the spots remaining for Monda
     (appointment) => queryByText(appointment, "Archie Cohen")
   )
 
-  fireEvent.click(queryByAltText(appointment, "Delete"))
+  fireEvent.click(getByAltText(appointment, "Delete"))
 
   // 4. Check that the confirmation message is shown.
   expect(
