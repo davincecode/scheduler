@@ -2,8 +2,6 @@
 
 ## Built using ReactJS
 
-## FEATURES
-
 ### ADD BOOKING
 
 ![This is an image](https://github.com/davincecode/scheduler/blob/master/public/images/add.gif)
