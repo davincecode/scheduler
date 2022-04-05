@@ -2,8 +2,6 @@
 
 ## Built using ReactJS
 
-## FEATURES
-
 ### ADD BOOKING
 
 ![This is an image](https://github.com/davincecode/scheduler/blob/master/public/images/add.gif)
@@ -23,6 +21,7 @@
 ## Setup
 
 Install dependencies with `npm install`.
+Clone this repo for the [scheduler-api](https://github.com/davincecode/scheduler-api) repository
 
 ## Running Webpack Development Server
 
@@ -41,3 +40,16 @@ npm test
 ```sh
 npm run storybook
 ```
+
+## Dev Dependencies
+
+- axios
+- react
+- react-dom
+- @testing-library/jest-dom
+- @testing-library/react
+- Cypress
+- Storybook
+- Node-sass
+- Prop-types
+- react-test-renderer
