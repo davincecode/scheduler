@@ -20,7 +20,7 @@ Things you can do with the app:
 
 ## Installation Video Guide
 
-![This is an image](https://github.com/davincecode/scheduler/blob/master/public/images/scheduler_guide_clip.mov)
+![This is a video](https://github.com/davincecode/scheduler/blob/b227753b7549979da7bbfdd8d027f71f03d98a88/public/images/scheduler_guide_clip.mov)
 
 ## Getting Started
 
