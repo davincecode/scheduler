@@ -4,8 +4,6 @@ A simple interview appointment scheduling tool. A single-page web app design usi
 
 ## Screenshots
 
-Interview Scheduler is pretty slick.
-
 Things you can do with the app:
 
 ### ADD BOOKING
