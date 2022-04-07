@@ -1,45 +1,38 @@
 # Interview Scheduler
 
-## Built using ReactJS
+A simple interview appointment scheduling tool. A single-page web app design using React that allows anyone to add, edit and delete interviews. It does not include user account management, but stores schedule information in a database.
+
+## Screenshots
+
+Interview Scheduler is pretty slick.
+
+Things you can do with the app:
 
 ### ADD BOOKING
 
-![This is an image](https://github.com/davincecode/scheduler/blob/master/public/images/add.gif)
+![This is an image](https://github.com/davincecode/scheduler/blob/master/public/images/add_name.gif)
 
 ### EDIT BOOKING
 
-![This is an image](https://github.com/davincecode/scheduler/blob/master/public/images/edit.gif)
+![This is an image](https://github.com/davincecode/scheduler/blob/master/public/images/edit_name.gif)
 
 ### DELETE BOOKING
 
-![This is an image](https://github.com/davincecode/scheduler/blob/master/public/images/delete.gif)
+![This is an image](https://github.com/davincecode/scheduler/blob/master/public/images/delete_interview.gif)
 
-### CANCEL
+## Installation Video Guide
 
-![This is an image](https://github.com/davincecode/scheduler/blob/master/public/images/cancel.gif)
+![This is an image](https://github.com/davincecode/scheduler/blob/master/public/images/scheduler_guide_clip.mov)
 
-## Setup
+## Getting Started
 
-Install dependencies with `npm install`.
-Clone this repo for the [scheduler-api](https://github.com/davincecode/scheduler-api) repository
+1. Clone this repo in addition to the [scheduler-api](https://github.com/davincecode/scheduler-api) repository.
 
-## Running Webpack Development Server
+2. Install dependencies with `npm install` on both scheduler and scheduler-api.
 
-```sh
-npm start
-```
+3. Run both client and server with `npm start`.
 
-## Running Jest Test Framework
-
-```sh
-npm test
-```
-
-## Running Storybook Visual Testbed
-
-```sh
-npm run storybook
-```
+4. Running Jest Test Framework `npm test`.
 
 ## Dev Dependencies
 
