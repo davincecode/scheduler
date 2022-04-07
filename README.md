@@ -20,8 +20,8 @@ Things you can do with the app:
 
 ## Installation Video Guide
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=7KKprSv_tak" target="_blank"><img src="http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg" 
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=7KKprSv_tak" target="_blank"><img src="https://github.com/davincecode/scheduler/blob/475d0b89a248a78bba2a5b2f00327b01e95cf007/public/images/video_link.png" 
+alt="instructions" width="680" height="420" /></a>
 
 ## Getting Started
 
