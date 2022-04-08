@@ -15,6 +15,7 @@ import useApplicationData from "../hooks/useApplicationData"
 export default function Application(props) {
   const { state, setDay, bookInterview, cancelInterview } = useApplicationData()
 
+  // Available interviewers for the day based on the day selected by the user
   const interviewers = getInterviewersForDay(state, state.day)
 
   const appointments = getAppointmentsForDay(state, state.day).map(

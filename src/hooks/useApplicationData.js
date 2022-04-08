@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 
+// Sets initial state, API setup/calls, and websocket connection
 export default function useApplicationData() {
   const [state, setState] = useState({
     day: "Monday",
@@ -8,6 +9,7 @@ export default function useApplicationData() {
     appointments: {},
   })
 
+  // Initial axios call for populating data from database
   useEffect(() => {
     Promise.all([
       axios.get("api/days"),

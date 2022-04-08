@@ -1,5 +1,7 @@
 import { useState } from "react"
-
+/* 
+Custom hook for managing mode state (which handles transitions). Utilizes Stack data structure
+*/
 export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial)
   const [history, setHistory] = useState([initial])
