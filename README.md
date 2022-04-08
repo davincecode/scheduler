@@ -8,11 +8,11 @@ Things you can do with the app:
 
 ### ADD BOOKING
 
-![This is an image](https://github.com/davincecode/scheduler/blob/master/public/images/add_name.gif)
+![This is an image](https://github.com/davincecode/scheduler/blob/master/public/images/add.gif)
 
 ### EDIT BOOKING
 
-![This is an image](https://github.com/davincecode/scheduler/blob/master/public/images/edit_name.gif)
+![This is an image](https://github.com/davincecode/scheduler/blob/master/public/images/edit.gif)
 
 ### DELETE BOOKING
 
