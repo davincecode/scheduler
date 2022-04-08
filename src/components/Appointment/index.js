@@ -31,15 +31,11 @@ const Appointment = (props) => {
       student: name,
       interviewer,
     }
-
-    if (name && interviewer) {
-      props
-        .bookInterview(props.id, interview)
-        .then(() => transition(SHOW))
-        .catch((error) => transition(ERROR_SAVE, true))
-    } else {
-      transition(ERROR_SAVE)
-    }
+    transition(SAVING)
+    props
+      .bookInterview(props.id, interview)
+      .then(() => transition(SHOW))
+      .catch((error) => transition(ERROR_SAVE, true))
   }
 
   function cancel() {
