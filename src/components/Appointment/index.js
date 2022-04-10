@@ -53,7 +53,11 @@ const Appointment = (props) => {
       .catch((error) => transition(ERROR_DELETE, true)) // transition to ERROR_DELETE mode if there is an error
   }
 
-  function edit(name, interviewer) {
+  // function edit(name, interviewer) {
+  //   transition(EDITING) // transition to EDITING mode
+  // }
+
+  function edit() {
     transition(EDITING) // transition to EDITING mode
   }
 
@@ -102,10 +106,10 @@ const Appointment = (props) => {
       {mode === EDITING && (
         <Form
           interviewers={props.interviewers}
+          student={props.interview.student}
+          interviewer={props.interview.interviewer}
+          onCancel={() => back()}
           onSave={save}
-          onCancel={back}
-          name={props.interview.student}
-          interviewer={props.interview.interviewer.id}
         />
       )}
 
