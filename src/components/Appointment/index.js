@@ -12,8 +12,7 @@ import Error from "components/Appointment/Error"
 import useVisualMode from "../../hooks/useVisualMode"
 
 export default function Appointment(props) {
-  const { id, time, interviewers, bookInterview, cancelInterview, interview } =
-    props
+  const { id, time, interviewers, interview } = props
 
   const EMPTY = "EMPTY"
   const SHOW = "SHOW"
@@ -74,13 +73,13 @@ export default function Appointment(props) {
         <Empty onAdd={() => transition(CREATE)} />
       )}
 
-      {mode === SHOW && (
+      {mode === SHOW && interview && (
         <Show
           id={id}
-          time={time}
-          interview={interview}
-          onDelete={cancel}
-          onEdit={edit}
+          student={interview.student}
+          interviewer={interview.interviewer}
+          onDelete={() => cancel()}
+          onEdit={() => edit()}
         />
       )}
 
@@ -91,12 +90,13 @@ export default function Appointment(props) {
           onSave={save}
         />
       )}
+
       {mode === SAVING && <Status message={"Saving..."} />}
 
       {mode === CONFIRM && (
         <Confirm
           message="Are you sure you want to delete this?"
-          onConfirm={destroy}
+          onConfirm={() => destroy(id)}
           onCancel={() => back()}
         />
       )}
@@ -106,7 +106,7 @@ export default function Appointment(props) {
         <Form
           interviewers={interviewers}
           student={interview.student}
-          interviewer={interview.interviewer}
+          interviewer={interview.interviewer.id}
           onCancel={() => back()}
           onSave={save}
         />
