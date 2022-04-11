@@ -12,7 +12,8 @@ import Error from "components/Appointment/Error"
 import useVisualMode from "../../hooks/useVisualMode"
 
 export default function Appointment(props) {
-  const { id, time, interviewers, interview } = props
+  const { id, time, interviewers, interview, bookInterview, cancelInterview } =
+    props
 
   const EMPTY = "EMPTY"
   const SHOW = "SHOW"
@@ -45,7 +46,7 @@ export default function Appointment(props) {
       interviewer,
     }
     transition(SAVING) // transition to SAVING mode (shows the spinner) and then transition to SHOW mode (shows the appointment) after the save is complete
-      .bookInterview(id, interview) // bookInterview is a function passed down from the parent component (AppointmentList) and it takes in the id of the appointment and the interview
+    bookInterview(id, interview) // bookInterview is a function passed down from the parent component (AppointmentList) and it takes in the id of the appointment and the interview
       .then(() => transition(SHOW)) // transition to SHOW mode after the save is complete (shows the appointment)
       .catch((error) => transition(ERROR_SAVE, true)) // transition to ERROR_SAVE mode if there is an error
   }
@@ -56,7 +57,7 @@ export default function Appointment(props) {
 
   function destroy(id) {
     transition(DELETING, true) // transition to DELETING mode (shows the spinner) and then transition to EMPTY mode (shows the empty state) after the save is complete
-      .cancelInterview(id) // cancel the interview and then transition to EMPTY mode (shows the empty state) after the save is complete
+    cancelInterview(id) // cancel the interview and then transition to EMPTY mode (shows the empty state) after the save is complete
       .then(() => transition(EMPTY)) // transition to EMPTY mode (shows the empty state) after the save is complete
       .catch((error) => transition(ERROR_DELETE, true)) // transition to ERROR_DELETE mode if there is an error
   }
@@ -69,17 +70,22 @@ export default function Appointment(props) {
     <article className="appointment" data-testid="appointment">
       <Header time={time} />
 
-      {mode === EMPTY && interview === null && (
-        <Empty onAdd={() => transition(CREATE)} />
+      {mode === EMPTY && (
+        <Empty
+          onAdd={() => {
+            transition(CREATE)
+          }}
+          id={id}
+        />
       )}
 
-      {mode === SHOW && interview && (
+      {mode === SHOW && (
         <Show
           id={id}
-          student={interview.student}
-          interviewer={interview.interviewer}
-          onDelete={() => cancel()}
-          onEdit={() => edit()}
+          time={time}
+          interview={interview}
+          onDelete={cancel}
+          onEdit={edit}
         />
       )}
 
@@ -90,7 +96,6 @@ export default function Appointment(props) {
           onSave={save}
         />
       )}
-
       {mode === SAVING && <Status message={"Saving..."} />}
 
       {mode === CONFIRM && (
