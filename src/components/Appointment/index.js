@@ -53,17 +53,8 @@ const Appointment = (props) => {
       .catch((error) => transition(ERROR_DELETE, true)) // transition to ERROR_DELETE mode if there is an error
   }
 
-  // function edit(name, interviewer) {
-  //   transition(EDITING) // transition to EDITING mode
-  // }
-
   function edit() {
     transition(EDITING) // transition to EDITING mode
-  }
-
-  function close() {
-    mode === ERROR_SAVE && back() // if the mode is ERROR_SAVE, transition back to the SHOW mode
-    mode === ERROR_DELETE && back() // if the mode is ERROR_DELETE, transition back to the SHOW mode
   }
 
   return (
@@ -114,10 +105,17 @@ const Appointment = (props) => {
       )}
 
       {mode === ERROR_DELETE && (
-        <Error message={"Could not cancel appointment"} onClose={close} />
+        <Error
+          onClose={() => back()}
+          message="Error, could not cancel appointment. Please try again."
+        />
       )}
+
       {mode === ERROR_SAVE && (
-        <Error message={"Could not save appointment"} onClose={close} />
+        <Error
+          onClose={() => back()}
+          message="Error, Could not save appointment. Please try again."
+        />
       )}
     </article>
   )
