@@ -12,7 +12,7 @@ Things you can do with the app:
 
 ### EDIT BOOKING
 
-![This is an image](https://github.com/davincecode/scheduler/blob/master/public/images/edit.gif)
+![This is an image](https://github.com/davincecode/scheduler/blob/master/public/images/edit_update.gif)
 
 ### DELETE BOOKING
 
